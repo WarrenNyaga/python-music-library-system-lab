@@ -1,24 +1,25 @@
 class Song:
-    # --- Class Attributes (Global State) ---
+    # --- Class Attributes ---
     count = 0
     genres = []
     artists = []
     genre_count = {}
-    artist_count = {}
+    artists_count = {}
 
     # --- Constructor ---
+    # Make sure this has TWO underscores on both sides: __init__
     def __init__(self, name, artist, genre):
         self.name = name
         self.artist = artist
         self.genre = genre
-
+        
+        # Call the tracking methods
         Song.add_song_to_count()
         Song.add_to_genres(genre)
         Song.add_to_artists(artist)
         Song.add_to_genre_count(genre)
         Song.add_to_artist_count(artist)
 
-    # --- Class Methods ---
     @classmethod
     def add_song_to_count(cls):
         cls.count += 1
@@ -35,8 +36,14 @@ class Song:
 
     @classmethod
     def add_to_genre_count(cls, genre):
-        cls.genre_count[genre] = cls.genre_count.get(genre, 0) + 1
+        if genre in cls.genre_count:
+            cls.genre_count[genre] += 1
+        else:
+            cls.genre_count[genre] = 1
 
     @classmethod
     def add_to_artist_count(cls, artist):
-        cls.artist_count[artist] = cls.artist_count.get(artist, 0) + 1
+        if artist in cls.artist_count:
+            cls.artist_count[artist] += 1
+        else:
+            cls.artist_count[artist] = 1
